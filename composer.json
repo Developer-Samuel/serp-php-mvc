@@ -1,0 +1,26 @@
+{
+    "name": "developer-samuel/inizio-search-results",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "php-stan": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpstan analyse --memory-limit=1G"
+        ],
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:8000 -t public"
+        ]
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
+    }
+}
