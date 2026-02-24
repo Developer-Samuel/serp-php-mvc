@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Exceptions;
+namespace App\Application\Exceptions;
 
-use App\Http\Inertia;
+use App\Foundation\Http\Inertia\Inertia;
 
 final class Handler
 {

@@ -2,13 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Core\Template\Vite;
-
-$page = $_SERVER['INERTIA_PAGE'] ?? [
-    'component' => 'Pages/Home',
-    'props' => [],
-    'url' => '/'
-];
+use App\Foundation\Assets\Vite;
 
 ?>
 
@@ -25,7 +19,7 @@ $page = $_SERVER['INERTIA_PAGE'] ?? [
 <body>
     <div
         id="app"
-        data-page='<?= htmlspecialchars(json_encode($page), ENT_QUOTES, 'UTF-8') ?>'
+        data-page='<?= htmlspecialchars(json_encode($_SERVER['INERTIA_PAGE']), ENT_QUOTES, 'UTF-8') ?>'
     ></div>
 
     <script type="module" src="<?= Vite::asset('resources/ts/app.ts') ?>"></script>

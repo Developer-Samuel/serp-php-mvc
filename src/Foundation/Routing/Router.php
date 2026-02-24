@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Routing;
+namespace App\Foundation\Routing;
 
-use App\Exceptions\Handler;
+use App\Application\Exceptions\Handler;
 
 /**
  * @phpstan-type RouteAction array{class-string, string}

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Core\{
+use App\Foundation\{
     Routing\Route,
     Routing\Router
 };
@@ -12,28 +12,31 @@ use App\Core\{
 final class Kernel
 {
     /**
+     * @param Router $router
+    */
+    public function __construct(
+        private Router $router
+    ) {}
+
+    /**
      * @return void
     */
     public function handle(): void
     {
-        $router = new Router();
-
-        $this->loadRoutes($router);
+        $this->loadRoutes();
 
         $path = $this->resolvePath();
         $method = $this->resolveMethod();
 
-        $router->dispatch($path, $method);
+        $this->router->dispatch($path, $method);
     }
 
     /**
-     * @param Router $router
-     * 
      * @return void
     */
-    private function loadRoutes(Router $router): void
+    private function loadRoutes(): void
     {
-        Route::init($router);
+        Route::init($this->router);
 
         require BASE_PATH . '/routes/web.php';
     }

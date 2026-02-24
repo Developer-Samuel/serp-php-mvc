@@ -6,12 +6,13 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import '../css/app.css'
 
 import { resolvePage } from './config/resolvePage'
-import { getLayoutForPage } from './config/layoutConfig'
+
+import Layout from './Layout/App.vue';
 
 createInertiaApp({
-  resolve: async (name) => {
+  resolve: async (name: string) => {
     const page = await resolvePage(name)
-    page.layout = getLayoutForPage(name)
+    page.layout = Layout
     
     return page
   },

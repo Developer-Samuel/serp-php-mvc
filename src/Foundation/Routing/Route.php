@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Routing;
+namespace App\Foundation\Routing;
 
 /**
  * @phpstan-type RouteAction array{class-string, string}

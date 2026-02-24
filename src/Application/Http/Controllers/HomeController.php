@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Application\Http\Controllers;
 
-use App\Core\Http\Controller;
-
-use App\Http\Inertia;
+use App\Foundation\{
+    Http\Controller,
+    Http\Inertia\Inertia
+};
 
 class HomeController extends Controller
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Http;
+namespace App\Foundation\Http;
 
-use App\Core\Template\View;
+use App\Foundation\Template\View;
 
 abstract class Controller
 {
