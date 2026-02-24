@@ -2,7 +2,7 @@ parameters:
     level: 10
 
     bootstrapFiles:
-        - config/bootstrap.php
+        - bootstrap/app.php
         
     paths:
         - src
