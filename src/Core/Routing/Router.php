@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Core\Routing;
 
+use App\Exceptions\Handler;
+
 /**
  * @phpstan-type RouteAction array{class-string, string}
  * @phpstan-type RouteCollection array<string, array<string, RouteAction>>
@@ -37,14 +39,11 @@ final class Router
     {
         $routes = $this->routes[$method] ?? [];
 
-        $route = $routes[$uri] ?? null;
-        if (!$route) {
-            http_response_code(404);
-            echo '404 Not Found';
-            return;
+        if (!array_key_exists($uri, $routes)) {
+            Handler::notFound();
         }
 
-        [$controllerClass, $controllerMethod] = $route;
+        [$controllerClass, $controllerMethod] = $routes[$uri];
 
         $controller = new $controllerClass();
         $controller->$controllerMethod();

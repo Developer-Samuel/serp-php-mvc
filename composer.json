@@ -15,6 +15,14 @@
             "Composer\\Config::disableProcessTimeout",
             "phpstan analyse --memory-limit=1G"
         ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npm run dev"
+        ],
+        "build": [
+            "Composer\\Config::disableProcessTimeout",
+            "npm run build"
+        ],
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "php -S localhost:8000 -t public"

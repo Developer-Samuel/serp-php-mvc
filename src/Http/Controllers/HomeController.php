@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 
 use App\Core\Http\Controller;
 
+use App\Http\Inertia;
+
 class HomeController extends Controller
 {
     /**
@@ -13,6 +15,14 @@ class HomeController extends Controller
     */
     public function index(): void
     {
-        $this->view->render('home');
+        Inertia::render('Pages/Home');
+    }
+
+    /**
+     * @return void
+    */
+    public function test(): void
+    {
+        Inertia::render('Pages/Test');
     }
 }
