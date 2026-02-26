@@ -15,6 +15,10 @@
             "Composer\\Config::disableProcessTimeout",
             "phpstan analyse --memory-limit=1G"
         ],
+        "rector:fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "rector process"
+        ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npm run dev"
@@ -29,6 +33,7 @@
         ]
     },
     "require-dev": {
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.3"
     }
 }

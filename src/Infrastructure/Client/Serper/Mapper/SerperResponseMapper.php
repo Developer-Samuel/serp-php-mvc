@@ -20,8 +20,6 @@ final class SerperResponseMapper
     */
     public function extract(array $data): array
     {
-        $extracted = [];
-
         $extracted = [
             ...$this->mapKnowledgeGraph($data),
             ...$this->mapOrganic($data),

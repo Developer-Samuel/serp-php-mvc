@@ -77,7 +77,7 @@ final class SerperClient
     private function buildHeaders(string $key): array
     {
         return [
-            "X-API-KEY: {$key}",
+            'X-API-KEY: ' . $key,
             "Content-Type: application/json",
         ];
     }

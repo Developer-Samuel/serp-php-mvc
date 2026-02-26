@@ -19,7 +19,7 @@ final class JsonResponse
             http_response_code($status);
         }
 
-        echo (string) json_encode(
+        echo json_encode(
             $data,
             JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
         );

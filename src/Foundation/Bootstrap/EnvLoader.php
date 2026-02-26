@@ -25,8 +25,11 @@ final class EnvLoader
 
         foreach ($lines as $line) {
             $line = trim($line);
-
-            if ($line === '' || str_starts_with($line, '#')) {
+            if ($line === '') {
+                continue;
+            }
+            
+            if (str_starts_with($line, '#')) {
                 continue;
             }
 
@@ -41,7 +44,7 @@ final class EnvLoader
             $name = trim($name);
             $value = trim($value, " \t\n\r\0\x0B\"'");
 
-            putenv("{$name}={$value}");
+            putenv(sprintf('%s=%s', $name, $value));
             $_ENV[$name] = $value;
         }
     }

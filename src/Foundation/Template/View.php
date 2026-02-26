@@ -21,13 +21,15 @@ final class View
      * @param array<string, mixed> $data
      * 
      * @return void
+     * 
+     * @throws \RuntimeException
     */
     public function render(string $view, array $data = []): void
     {
         $path = $this->paths . '/' . str_replace('.', '/', $view) . '.php';
 
         if (!file_exists($path)) {
-            throw new \RuntimeException("View {$view} not found.");
+            throw new \RuntimeException(sprintf('View %s not found.', $view));
         }
 
         extract($data, EXTR_SKIP);
