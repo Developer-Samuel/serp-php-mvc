@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\Services;
 
+use App\Foundation\Logging\Log;
+
 use App\Infrastructure\{
     Client\Serper\Adapter\SerperClient,
     Client\Serper\Connection\SerperConnection,
@@ -45,25 +47,33 @@ final readonly class ScraperService
     */
     public function scrape(string $keyword): array
     {
-        $connection = $this->getConnection();
-        if ($connection->isInvalid()) {
-            return $this->errorResponse('API configuration is invalid', 500);
-        }
+        try {
+            $connection = $this->getConnection();
+            if ($connection->isInvalid()) {
+                return $this->errorResponse('API configuration is invalid', 500);
+            }
 
-        $response = $this->fetchResults($keyword, $connection);
-        if ($response === null) {
-            return $this->errorResponse('API communication failed', 502);
-        }
+            $response = $this->fetchResults($keyword, $connection);
+            if ($response === null) {
+                return $this->errorResponse('API communication failed', 502);
+            }
 
-        $results = $this->mapResults($response);
-        if ($results === []) {
-            return $this->errorResponse('No organic results found', 404);
-        }
+            $results = $this->mapResults($response);
+            if ($results === []) {
+                return $this->errorResponse('No organic results found', 404);
+            }
 
-        return [
-            'data' => $results,
-            'status' => 200,
-        ];
+            return [
+                'data' => $results,
+                'status' => 200,
+            ];
+        } catch (\Throwable $throwable) {
+            Log::app()->error('ScraperService error', [
+                'exception' => $throwable
+            ]);
+
+            throw $throwable;
+        }
     }
 
     /**

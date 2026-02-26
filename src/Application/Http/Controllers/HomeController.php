@@ -18,12 +18,4 @@ class HomeController extends Controller
     {
         Inertia::render('Pages/Home');
     }
-
-    /**
-     * @return void
-    */
-    public function test(): void
-    {
-        Inertia::render('Pages/Test');
-    }
 }

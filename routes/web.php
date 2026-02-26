@@ -10,5 +10,4 @@ use App\Application\Http\{
 };
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/test', [HomeController::class, 'test']);
 Route::post('/scrape', [ScraperController::class, 'scrape']);
