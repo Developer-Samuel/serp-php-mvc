@@ -6,7 +6,7 @@ namespace App\Foundation\Http\Inertia\Response;
 
 use App\Foundation\Http\Inertia\Headers\InertiaHeaders;
 
-use App\Application\Dto\Inertia\InertiaPage;
+use App\Application\View\InertiaPage;
 
 final class InertiaResponse
 {

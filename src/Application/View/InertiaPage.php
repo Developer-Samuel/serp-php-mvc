@@ -2,14 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Dto\Inertia;
-
-use App\Support\Arrayable;
+namespace App\Application\View;
 
 final readonly class InertiaPage
 {
-    use Arrayable;
-
     /**
      * @param string $component
      * @param array<string, mixed> $props

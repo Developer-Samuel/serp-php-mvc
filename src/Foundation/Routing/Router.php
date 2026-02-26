@@ -7,8 +7,14 @@ namespace App\Foundation\Routing;
 use App\Application\Exceptions\Handler;
 
 /**
- * @phpstan-type RouteAction array{class-string, string}
- * @phpstan-type RouteCollection array<string, array<string, RouteAction>>
+ * @phpstan-type RouteAction array{
+ *     class-string,
+ *     string
+ * }
+ * @phpstan-type RouteCollection array<
+ *     string,
+ *     array<string, RouteAction>
+ * >
 */
 final class Router
 {
