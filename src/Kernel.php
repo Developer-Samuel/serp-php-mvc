@@ -9,7 +9,7 @@ use App\Foundation\{
     Routing\Router
 };
 
-final class Kernel
+final readonly class Kernel
 {
     /**
      * @param Router $router

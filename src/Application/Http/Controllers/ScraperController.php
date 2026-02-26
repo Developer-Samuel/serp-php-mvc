@@ -20,18 +20,11 @@ use App\Application\{
     Services\ScraperService
 };
 
-final class ScraperController
+final readonly class ScraperController
 {
-    private ScraperService $service;
-
-    public function __construct()
-    {
-        $this->service = new ScraperService(
-            new SerperClient(),
-            new SerperResponseMapper(),
-            new SerperConnectionProvider()
-        );
-    }
+    public function __construct(
+        private ScraperService $service
+    ) {}
 
     /**
      * @return void

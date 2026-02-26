@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Foundation\Routing;
 
+use App\Foundation\Container\Container;
+
 use App\Application\Exceptions\Handler;
 
 /**
@@ -18,10 +20,15 @@ use App\Application\Exceptions\Handler;
 */
 final class Router
 {
-    /**
-     * @var RouteCollection
-    */
+    /** @var RouteCollection */
     private array $routes = [];
+
+    private readonly Container $container;
+
+    public function __construct()
+    {
+        $this->container = new Container();
+    }
 
     /**
      * @param string $method
@@ -40,18 +47,23 @@ final class Router
      * @param string $method
      * 
      * @return void
+     * 
+     * @throws \RuntimeException
     */
     public function dispatch(string $uri, string $method): void
     {
         $routes = $this->routes[$method] ?? [];
-
         if (!array_key_exists($uri, $routes)) {
             Handler::notFound();
         }
 
         [$controllerClass, $controllerMethod] = $routes[$uri];
 
-        $controller = new $controllerClass();
+        $controller = $this->container->get($controllerClass);
+        if (!method_exists($controller, $controllerMethod)) {
+            throw new \RuntimeException("Method {$controllerMethod} not found in {$controllerClass}");
+        }
+
         $controller->$controllerMethod();
     }
 }
