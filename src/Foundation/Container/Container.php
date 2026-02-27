@@ -94,7 +94,7 @@ final class Container
     private function getReflection(string $id): \ReflectionClass
     {
         if (!class_exists($id) && !interface_exists($id)) {
-            throw new \RuntimeException("Class or Interface {$id} does not exist.");
+            throw new \RuntimeException(sprintf('Class or Interface %s does not exist.', $id));
         }
 
         /** @var \ReflectionClass<T> */

@@ -61,7 +61,7 @@ final class Router
 
         $controller = $this->container->get($controllerClass);
         if (!method_exists($controller, $controllerMethod)) {
-            throw new \RuntimeException("Method {$controllerMethod} not found in {$controllerClass}");
+            throw new \RuntimeException(sprintf('Method %s not found in %s', $controllerMethod, $controllerClass));
         }
 
         $controller->$controllerMethod();

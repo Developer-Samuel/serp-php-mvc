@@ -20,6 +20,7 @@ final readonly class Application
         private string $basePath
     ) {
         $this->container = new Container();
+        
         $this->bootstrap();
     }
 
@@ -52,7 +53,7 @@ final readonly class Application
 
         foreach ($providers as $providerClass) {
             if (!class_exists($providerClass)) {
-                throw new \RuntimeException("Provider [{$providerClass}] not found.");
+                throw new \RuntimeException(sprintf('Provider [%s] not found.', $providerClass));
             }
 
             $provider = new $providerClass();
