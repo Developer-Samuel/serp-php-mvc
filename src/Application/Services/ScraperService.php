@@ -65,8 +65,6 @@ final readonly class ScraperService implements ScraperContract
                 return $this->errorResponse('No organic results found', 404);
             }
 
-            Log::app()->info('ScraperService INPUT');
-
             return [
                 'data' => $results,
                 'status' => 200,

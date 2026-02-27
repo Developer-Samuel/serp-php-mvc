@@ -41,13 +41,16 @@ final class AppServiceProvider
     {
         $container->set(
             LoggerContract::class,
-            static function (Container $c): LoggerContract {
-                return new MonologLogger(BASE_PATH . '/storage/logs/app.log', 'app');
-            }
+            static fn (Container $c): LoggerContract => new MonologLogger(
+                BASE_PATH . '/storage/logs/app.log', 
+                'app'
+            )
         );
 
-        $container->get(LoggerContract::class);
-        Log::init($container->get(LoggerContract::class));
+        /** @var LoggerContract $logger */
+        $logger = $container->get(LoggerContract::class);
+        
+        Log::init($logger);
     }
 
     /**

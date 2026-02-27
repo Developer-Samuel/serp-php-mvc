@@ -9,31 +9,29 @@ final class Container
     /** @var array<string, object> */
     private array $instances = [];
 
-    /** @var array<string, string|\Closure> */
+    /** @var array<string, string|\Closure(self): object> */
     private array $bindings = [];
 
     /**
-     * @template T of object
-     * @param class-string<T> $id
+     * @param string $id
      * 
-     * @return T
+     * @return object
     */
     public function get(string $id): object
     {
         if (isset($this->instances[$id])) {
-            /** @var T */
             return $this->instances[$id];
         }
 
         if (isset($this->bindings[$id])) {
             $concrete = $this->bindings[$id];
+
             if ($concrete instanceof \Closure) {
-                return $this->setInstance($id, $concrete($this));
+                $instance = $concrete($this);
+                return $this->setInstance($id, $instance);
             }
 
-            if (is_string($concrete)) {
-                return $this->get($concrete);
-            }
+            return $this->get($concrete);
         }
 
         return $this->resolve($id);
@@ -44,44 +42,44 @@ final class Container
      * @param mixed $concrete
      * 
      * @return void
-     * 
-     * @throws \RuntimeException
     */
     public function set(string $id, mixed $concrete): void
     {
-        if ($concrete instanceof \Closure || is_string($concrete)) {
-            $this->bindings[$id] = $concrete;
-            return;
-        }
-
-        if (is_object($concrete)) {
-            $this->instances[$id] = $concrete;
-            return;
-        }
+        match (true) {
+            $concrete instanceof \Closure, is_string($concrete) => $this->bindings[$id] = $concrete,
+            is_object($concrete) => $this->instances[$id] = $concrete,
+            default => throw new \InvalidArgumentException(
+                sprintf('Invalid type for [%s]. Expected Closure, string or object, got %s.', $id, get_debug_type($concrete))
+            ),
+        };
     }
 
     /**
-     * @template T of object
+     * @param string $id
      * 
-     * @param class-string<T> $id
+     * @return object
      * 
-     * @return T
-    */
+     * @throws \ReflectionException|\LogicException
+     */
     private function resolve(string $id): object
     {
-        $reflection = $this->getReflection($id);
-        $constructor = $reflection->getConstructor();
+        if (!class_exists($id)) {
+            throw new \LogicException(sprintf('Target class [%s] does not exist.', $id));
+        }
 
+        $reflection = $this->getReflection($id);
+
+        $constructor = $reflection->getConstructor();
         if ($constructor === null) {
-            return $this->setInstance($id, new $id());
+            $instance = new $id();
+            return $this->setInstance($id, $instance);
         }
 
         $dependencies = $this->resolveParameters($constructor->getParameters());
 
-        return $this->setInstance(
-            $id, 
-            $reflection->newInstanceArgs($dependencies)
-        );
+        $instance = $reflection->newInstanceArgs($dependencies);
+
+        return $this->setInstance($id, $instance);
     }
 
     /**
@@ -99,26 +97,21 @@ final class Container
             throw new \RuntimeException("Class or Interface {$id} does not exist.");
         }
 
-        $reflection = new \ReflectionClass($id);
-
-        if (!$reflection->isInstantiable()) {
-            throw new \RuntimeException("Target [$id] is not instantiable. Did you forget to bind it in AppServiceProvider?");
-        }
-
-        return $reflection;
+        /** @var \ReflectionClass<T> */
+        return new \ReflectionClass($id);
     }
 
     /**
-     * @template T of object
-     * 
      * @param string $id
-     * @param T $instance
+     * @param object $instance
      * 
-     * @return T
+     * @return object
     */
     private function setInstance(string $id, object $instance): object
     {
-        return $this->instances[$id] = $instance;
+        $this->instances[$id] = $instance;
+
+        return $instance;
     }
 
     /**
@@ -145,14 +138,17 @@ final class Container
     {
         $type = $parameter->getType();
         if (!$type instanceof \ReflectionNamedType || $type->isBuiltin()) {
+            $declaringClass = $parameter->getDeclaringClass();
+
             throw new \RuntimeException(
-                "Container cannot resolve non-class parameter '{$parameter->getName()}' in {$parameter->getDeclaringClass()?->getName()}"
+                sprintf(
+                    "Container cannot resolve non-class parameter '%s' in %s",
+                    $parameter->getName(),
+                    $declaringClass ? $declaringClass->getName() : 'unknown'
+                )
             );
         }
 
-        /** @var class-string<object> $className */
-        $className = $type->getName();
-
-        return $this->get($className);
+        return $this->get($type->getName());
     }
 }
