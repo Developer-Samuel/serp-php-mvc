@@ -10,7 +10,9 @@ use Monolog\{
     Logger
 };
 
-final class MonologLogger
+use App\Infrastructure\Logging\Contract\LoggerContract;
+
+final class MonologLogger implements LoggerContract
 {
     private Logger $logger;
 
@@ -59,7 +61,6 @@ final class MonologLogger
      * 
      * @return void
     */
-
     public function debug(string $message, array $context = []): void
     {
         $this->logger->debug($message, $context);

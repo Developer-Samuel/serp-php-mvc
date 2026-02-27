@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Client\Serper\Provider;
+namespace App\Infrastructure\Client\Serper\Factory;
 
 use App\Infrastructure\Client\Serper\Connection\SerperConnection;
 
-final class SerperConnectionProvider
+final class SerperConnectionFactory
 {
     /**
      * @param string $basePath

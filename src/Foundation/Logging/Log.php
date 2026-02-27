@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace App\Foundation\Logging;
 
-use App\Infrastructure\Logging\MonologLogger;
+use App\Infrastructure\Logging\Contract\LoggerContract;
 
 final class Log
 {
-    private static ?MonologLogger $logger = null;
+    private static ?LoggerContract $logger = null;
 
     /**
-     * @param MonologLogger $logger
+     * @param LoggerContract $logger
     */
-    public static function init(MonologLogger $logger): void
+    public static function init(LoggerContract $logger): void
     {
         self::$logger = $logger;
     }
 
     /**
-     * @return MonologLogger
+     * @return LoggerContract
      * 
      * @throws \RuntimeException
     */
-    public static function app(): MonologLogger
+    public static function app(): LoggerContract
     {
         if (self::$logger === null) {
             throw new \RuntimeException('Logger not initialized');

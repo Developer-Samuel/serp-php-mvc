@@ -24,28 +24,61 @@ final class EnvLoader
         }
 
         foreach ($lines as $line) {
-            $line = trim($line);
-            if ($line === '') {
-                continue;
-            }
-            
-            if (str_starts_with($line, '#')) {
-                continue;
-            }
-
-            $parts = explode('=', $line, 2);
-
-            if (count($parts) !== 2) {
-                continue;
-            }
-
-            [$name, $value] = $parts;
-
-            $name = trim($name);
-            $value = trim($value, " \t\n\r\0\x0B\"'");
-
-            putenv(sprintf('%s=%s', $name, $value));
-            $_ENV[$name] = $value;
+            self::processLine($line);
         }
+    }
+
+    /**
+     * @param string $line
+     * 
+     * @return void
+    */
+    private static function processLine(string $line): void
+    {
+        $line = trim($line);
+        if (self::shouldSkip($line)) {
+            return;
+        }
+
+        $parts = explode('=', $line, 2);
+        if (count($parts) !== 2) {
+            return;
+        }
+
+        [$name, $value] = $parts;
+        self::setEnv(trim($name), self::sanitizeValue($value));
+    }
+
+    /**
+     * @param string $line
+     * 
+     * @return bool
+    */
+    private static function shouldSkip(string $line): bool
+    {
+        return $line === '' || str_starts_with($line, '#');
+    }
+
+    /**
+     * @param string $value
+     * 
+     * @return string
+    */
+    private static function sanitizeValue(string $value): string
+    {
+        return trim($value, " \t\n\r\0\x0B\"'");
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     * 
+     * @return void
+    */
+    private static function setEnv(string $name, string $value): void
+    {
+        putenv(sprintf('%s=%s', $name, $value));
+        $_ENV[$name] = $value;
+        $_SERVER[$name] = $value;
     }
 }

@@ -2,19 +2,14 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../bootstrap/app.php';
-
-use App\Foundation\Routing\Router;
-
 use App\Kernel;
 
 /**
  * |--------------------------------------------------------------------------
- * | Run Application
+ * | Bootstrap The Application
  * |--------------------------------------------------------------------------
 */
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
-$router = new Router();
-
-$kernel = new Kernel($router);
+$kernel = $app->getContainer()->get(Kernel::class);
 $kernel->handle();

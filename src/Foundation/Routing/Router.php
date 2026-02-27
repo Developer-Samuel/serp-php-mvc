@@ -23,12 +23,12 @@ final class Router
     /** @var RouteCollection */
     private array $routes = [];
 
-    private readonly Container $container;
-
-    public function __construct()
-    {
-        $this->container = new Container();
-    }
+    /**
+     * @param Container $container
+    */
+    public function __construct(
+        private readonly Container $container
+    ) {}
 
     /**
      * @param string $method

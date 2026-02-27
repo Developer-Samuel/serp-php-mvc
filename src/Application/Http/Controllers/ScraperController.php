@@ -9,21 +9,18 @@ use App\Foundation\{
     Logging\Log
 };
 
-use App\Infrastructure\{
-    Client\Serper\Adapter\SerperClient,
-    Client\Serper\Mapper\SerperResponseMapper,
-    Client\Serper\Provider\SerperConnectionProvider
-};
-
 use App\Application\{
     Http\Request\ScrapeRequest,
-    Services\ScraperService
+    Services\Contract\ScraperContract
 };
 
 final readonly class ScraperController
 {
+    /**
+     * @param ScraperContract $service
+    */
     public function __construct(
-        private ScraperService $service
+        private ScraperContract $service
     ) {}
 
     /**

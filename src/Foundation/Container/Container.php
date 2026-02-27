@@ -9,13 +9,15 @@ final class Container
     /** @var array<string, object> */
     private array $instances = [];
 
+    /** @var array<string, string|\Closure> */
+    private array $bindings = [];
+
     /**
      * @template T of object
-     * 
      * @param class-string<T> $id
      * 
      * @return T
-     */
+    */
     public function get(string $id): object
     {
         if (isset($this->instances[$id])) {
@@ -23,7 +25,39 @@ final class Container
             return $this->instances[$id];
         }
 
+        if (isset($this->bindings[$id])) {
+            $concrete = $this->bindings[$id];
+            if ($concrete instanceof \Closure) {
+                return $this->setInstance($id, $concrete($this));
+            }
+
+            if (is_string($concrete)) {
+                return $this->get($concrete);
+            }
+        }
+
         return $this->resolve($id);
+    }
+
+    /**
+     * @param string $id
+     * @param mixed $concrete
+     * 
+     * @return void
+     * 
+     * @throws \RuntimeException
+    */
+    public function set(string $id, mixed $concrete): void
+    {
+        if ($concrete instanceof \Closure || is_string($concrete)) {
+            $this->bindings[$id] = $concrete;
+            return;
+        }
+
+        if (is_object($concrete)) {
+            $this->instances[$id] = $concrete;
+            return;
+        }
     }
 
     /**
@@ -32,11 +66,10 @@ final class Container
      * @param class-string<T> $id
      * 
      * @return T
-     */
+    */
     private function resolve(string $id): object
     {
         $reflection = $this->getReflection($id);
-
         $constructor = $reflection->getConstructor();
 
         if ($constructor === null) {
@@ -57,22 +90,24 @@ final class Container
      * @param class-string<T> $id
      * 
      * @return \ReflectionClass<T>
-     */
+     * 
+     * @throws \RuntimeException
+    */
     private function getReflection(string $id): \ReflectionClass
     {
-        if (!class_exists($id)) {
-            throw new \RuntimeException("Class {$id} does not exist.");
+        if (!class_exists($id) && !interface_exists($id)) {
+            throw new \RuntimeException("Class or Interface {$id} does not exist.");
         }
 
         $reflection = new \ReflectionClass($id);
 
         if (!$reflection->isInstantiable()) {
-            throw new \RuntimeException("Class {$id} is not instantiable.");
+            throw new \RuntimeException("Target [$id] is not instantiable. Did you forget to bind it in AppServiceProvider?");
         }
 
         return $reflection;
     }
-    
+
     /**
      * @template T of object
      * 

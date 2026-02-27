@@ -10,8 +10,10 @@ use App\Infrastructure\{
     Client\Serper\Adapter\SerperClient,
     Client\Serper\Connection\SerperConnection,
     Client\Serper\Mapper\SerperResponseMapper,
-    Client\Serper\Provider\SerperConnectionProvider
+    Client\Serper\Factory\SerperConnectionFactory
 };
+
+use App\Application\Services\Contract\ScraperContract;
 
 /**
  * @phpstan-type OrganicItem array{
@@ -27,17 +29,17 @@ use App\Infrastructure\{
  *     status: int
  * }
 */
-final readonly class ScraperService
+final readonly class ScraperService implements ScraperContract
 {
     /**
      * @param SerperClient $client
      * @param SerperResponseMapper $mapper
-     * @param SerperConnectionProvider $provider
+     * @param SerperConnectionFactory $factory
     */
     public function __construct(
         private SerperClient $client,
         private SerperResponseMapper $mapper,
-        private SerperConnectionProvider $provider
+        private SerperConnectionFactory $factory
     ) {}
 
     /**
@@ -63,6 +65,8 @@ final readonly class ScraperService
                 return $this->errorResponse('No organic results found', 404);
             }
 
+            Log::app()->info('ScraperService INPUT');
+
             return [
                 'data' => $results,
                 'status' => 200,
@@ -81,7 +85,7 @@ final readonly class ScraperService
     */
     private function getConnection(): SerperConnection
     {
-        return $this->provider->search(BASE_PATH);
+        return $this->factory->search(BASE_PATH);
     }
 
     /**

@@ -46,13 +46,10 @@ final readonly class Kernel
     */
     private function resolvePath(): string
     {
-        $uri = $this->getServerValue('REQUEST_URI', '/');
+        $uri = $_SERVER['REQUEST_URI'] ?? '/';
+        $parsed = parse_url((string) $uri, PHP_URL_PATH);
 
-        $parsed = parse_url($uri, PHP_URL_PATH);
-
-        return is_string($parsed) && $parsed !== ''
-            ? $parsed
-            : '/';
+        return (is_string($parsed) && $parsed !== '') ? $parsed : '/';
     }
 
     /**
@@ -60,19 +57,6 @@ final readonly class Kernel
     */
     private function resolveMethod(): string
     {
-        return $this->getServerValue('REQUEST_METHOD', 'GET');
-    }
-
-    /**
-     * @param string $key
-     * @param string $default
-     * 
-     * @return string
-    */
-    private function getServerValue(string $key, string $default): string
-    {
-        $value = $_SERVER[$key] ?? $default;
-
-        return is_string($value) ? $value : $default;
+        return (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');
     }
 }
