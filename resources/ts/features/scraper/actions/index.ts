@@ -5,6 +5,7 @@ import type { ScrapeResponse } from '@/ts/features/scraper/services/contracts/sc
 
 import { createSearchAction } from '@/ts/features/scraper/actions/search/search'
 import { createDownloadAction } from '@/ts/features/scraper/actions/download/downloadJson'
+import { createDownloadXmlAction } from '@/ts/features/scraper/actions/download/downloadXml'
 
 export const useScrapeActions = (
   keyword: Ref<string>,
@@ -13,9 +14,11 @@ export const useScrapeActions = (
 ) => {
   const search = createSearchAction(keyword, results, errorMessage)
   const downloadJson = createDownloadAction(keyword, results)
+  const downloadXml = createDownloadXmlAction(keyword, results)
 
   return {
     search,
-    downloadJson
+    downloadJson,
+    downloadXml
   }
 }

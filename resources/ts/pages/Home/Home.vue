@@ -37,6 +37,12 @@
       >
         Download JSON
       </button>
+      <button
+        @click="downloadXml"
+        class="bg-orange-600 hover:bg-orange-700 rounded-lg px-3 py-1 transition duration-500 focus:ring-1 focus:ring-purple-600 cursor-pointer"
+      >
+        Download XML
+      </button>
     </div>
 </template>
 
@@ -48,6 +54,7 @@ const {
   results,
   errorMessage,
   search,
-  downloadJson
+  downloadJson,
+  downloadXml
 } = useScrape()
 </script>

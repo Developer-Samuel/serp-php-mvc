@@ -8,5 +8,6 @@ export interface UseScrape {
   readonly results: Ref<ScrapeResponse | null>
   readonly errorMessage: Ref<string | null>
   readonly search: () => Promise<void>
-  readonly downloadJson: () => void
+  readonly downloadJson: () => void,
+  readonly downloadXml: () => void
 }
