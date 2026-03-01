@@ -1,11 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-use App\Foundation\Assets\Vite;
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,14 +6,14 @@ use App\Foundation\Assets\Vite;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
 
-    <link rel="stylesheet" href="<?= Vite::css('resources/ts/app.ts') ?>">
+    <link rel="stylesheet" href="<?= vite_css('app.ts') ?>">
 </head>
 <body>
     <div
         id="app"
-        data-page='<?= htmlspecialchars(json_encode($_SERVER['INERTIA_PAGE']), ENT_QUOTES, 'UTF-8') ?>'
+        data-page='<?= inertia_page($page) ?>'
     ></div>
 
-    <script type="module" src="<?= Vite::asset('resources/ts/app.ts') ?>"></script>
+    <script type="module" src="<?= vite('app.ts') ?>"></script>
 </body>
 </html>

@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\Foundation\Template;
 
+use App\Foundation\{
+    Application,
+    Assets\Resolver\AssetPathResolver,
+    Assets\Vite
+};
+
 final class View
 {
     private string $paths;
@@ -35,5 +41,61 @@ final class View
         extract($data, EXTR_SKIP);
 
         require $path;
+    }
+
+    /**
+     * @param string $path
+     * 
+     * @return string
+    */
+    public static function vite(string $path): string
+    {        
+        $resolvedPath = AssetPathResolver::resolve($path);
+        
+        return self::getViteInstance()->asset($resolvedPath);
+    }
+
+    /**
+     * @param string $path
+     * 
+     * @return string
+    */
+    public static function viteCss(string $path): string
+    {
+        $resolvedPath = AssetPathResolver::resolve($path);
+
+        return self::getViteInstance()->css($resolvedPath);
+    }
+
+    /**
+     * @param mixed $page
+     * 
+     * @return string
+    */
+    public static function inertiaPage(mixed $page): string
+    {
+        return htmlspecialchars(
+            json_encode($page, JSON_THROW_ON_ERROR),
+            ENT_QUOTES,
+            'UTF-8'
+        );
+    }
+
+    /**
+     * @return Vite
+     * 
+     * @throws \RuntimeException
+    */
+    private static function getViteInstance(): Vite
+    {
+        $vite = Application::getInstance()->getContainer()->get(Vite::class);
+        if (!$vite instanceof Vite) {
+            throw new \RuntimeException(sprintf(
+                'Instance [%s] not found in DI container.', 
+                Vite::class
+            ));
+        }
+
+        return $vite;
     }
 }

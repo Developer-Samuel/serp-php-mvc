@@ -9,9 +9,11 @@ use App\Foundation\{
     Container\Container
 };
 
-final readonly class Application
+final class Application
 {
-    private Container $container;
+    private static self $instance;
+
+    private readonly Container $container;
 
     /**
      * @param string $basePath
@@ -19,9 +21,32 @@ final readonly class Application
     public function __construct(
         private string $basePath
     ) {
+        self::$instance = $this;
+
         $this->container = new Container();
-        
         $this->bootstrap();
+    }
+
+    /**
+     * @return self
+     * 
+     * @throws \RuntimeException
+    */
+    public static function getInstance(): self
+    {
+        if (!isset(self::$instance)) {
+            throw new \RuntimeException('Application is not initialized yet.');
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * @return Container
+    */
+    public function getContainer(): Container
+    {
+        return $this->container;
     }
 
     /**
@@ -30,6 +55,7 @@ final readonly class Application
     private function bootstrap(): void
     {
         EnvLoader::load($this->basePath);
+        
         $this->registerServiceProviders();
         
         $this->container->set(Container::class, $this->container);
@@ -61,13 +87,5 @@ final readonly class Application
                 $provider->register($this->container);
             }
         }
-    }
-
-    /**
-     * @return Container
-    */
-    public function getContainer(): Container
-    {
-        return $this->container;
     }
 }

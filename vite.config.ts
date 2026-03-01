@@ -22,9 +22,9 @@ export default defineConfig({
     manifest: true,
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        app: "resources/ts/app.ts"
-      }
+      input: [
+        "resources/ts/app.ts"
+      ]
     }
   }
 });
