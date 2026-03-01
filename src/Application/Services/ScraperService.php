@@ -55,7 +55,7 @@ final readonly class ScraperService implements ScraperContract
                 return $this->errorResponse('API configuration is invalid', 500);
             }
 
-            $response = $this->fetchResults($keyword, $connection);
+            $response = $this->fetchResults(trim($keyword), $connection);
             if ($response === null) {
                 return $this->errorResponse('API communication failed', 502);
             }

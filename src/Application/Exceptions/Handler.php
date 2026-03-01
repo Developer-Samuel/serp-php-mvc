@@ -18,7 +18,7 @@ final class Handler
         http_response_code(404);
 
         Inertia::render(
-            'Errors/NotFound',
+            'errors/NotFound',
             [
                 'message' => $message
             ]

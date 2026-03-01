@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Http\Controllers;
 
 use App\Foundation\{
-    Http\Controller,
+    Http\Abstract\Controller,
     Http\Inertia\Inertia
 };
 
@@ -16,6 +16,6 @@ class HomeController extends Controller
     */
     public function index(): void
     {
-        Inertia::render('Pages/Home');
+        Inertia::render('pages/Home/Home');
     }
 }

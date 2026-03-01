@@ -14,62 +14,24 @@ final readonly class ScrapeRequest
     ) {}
 
     /**
-     * @return self|null
-    */
-    public static function fromHttp(): ?self
-    {
-        $payload = self::readInput();
-        if ($payload === null) {
-            return null;
-        }
-
-        return self::fromArray($payload);
-    }
-
-    /**
      * @param array<mixed> $data
      * 
-     * @return self|null
-    */
-    private static function fromArray(array $data): ?self
-    {
-        $keyword = self::extractKeyword($data);
-        if ($keyword === null) {
-            return null;
-        }
-
-        return new self($keyword);
-    }
-
-    /**
-     * @return array<mixed>|null
-    */
-    private static function readInput(): ?array
-    {
-        $input = file_get_contents('php://input');
-        if ($input === false) {
-            return null;
-        }
-
-        $decoded = json_decode($input, true);
-
-        return is_array($decoded) ? $decoded : null;
-    }
-
-    /**
-     * @param array<mixed> $data
+     * @return self
      * 
-     * @return string|null
+     * @throws \InvalidArgumentException
     */
-    private static function extractKeyword(array $data): ?string
+    public static function fromArray(array $data): self
     {
         $keyword = $data['keyword'] ?? null;
         if (!is_string($keyword)) {
-            return null;
+            throw new \InvalidArgumentException('Keyword is required');
         }
 
         $keyword = trim($keyword);
+        if ($keyword === '') {
+            throw new \InvalidArgumentException('Keyword is required');
+        }
 
-        return $keyword !== '' ? $keyword : null;
+        return new self($keyword);
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Http\Controllers;
 
 use App\Foundation\{
+    Http\Request,
     Http\Response\JsonResponse,
     Logging\Log
 };
@@ -24,30 +25,33 @@ final readonly class ScraperController
     ) {}
 
     /**
+     * @param Request $request
+     * 
      * @return void
     */
-    public function scrape(): void
+    public function scrape(Request $request): void
     {
-        $request = ScrapeRequest::fromHttp();
-        if ($request === null) {
-            JsonResponse::send(['error' => 'Invalid request'], 400);
-            return;
-        }
-
         try {
-            $result = $this->service->scrape($request->keyword);
+            $scrapeRequest = ScrapeRequest::fromArray($request->data);
+
+            $result = $this->service->scrape($scrapeRequest->keyword);
 
             JsonResponse::send(
                 $result['data'],
                 $result['status']
             );
+        } catch (\InvalidArgumentException $e) {
+            JsonResponse::send(
+                ['error' => $e->getMessage()],
+                400
+            );
         } catch (\Throwable $throwable) {
-            Log::app()->error('Controller failed', [
+            Log::app()->error('ScraperController failed', [
                 'exception' => $throwable,
             ]);
 
             JsonResponse::send(
-                ['error' => 'Internal Server Error'],
+                ['error' => 'Something went wrong.'],
                 500
             );
         }

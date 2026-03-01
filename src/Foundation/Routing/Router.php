@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Foundation\Routing;
 
-use App\Foundation\Container\Container;
+use App\Foundation\{
+    Container\Container,
+    Http\Request
+};
 
 use App\Application\Exceptions\Handler;
 
@@ -61,9 +64,46 @@ final class Router
 
         $controller = $this->container->get($controllerClass);
         if (!method_exists($controller, $controllerMethod)) {
-            throw new \RuntimeException(sprintf('Method %s not found in %s', $controllerMethod, $controllerClass));
+            throw new \RuntimeException(
+                sprintf('Method %s not found in %s', $controllerMethod, $controllerClass)
+            );
         }
 
-        $controller->$controllerMethod();
+        $parameters = $this->resolveParameters($controller, $controllerMethod);
+
+        $controller->$controllerMethod(...$parameters);
+    }
+
+    /**
+     * @param object $controller
+     * @param string $method
+     * 
+     * @return array<int, mixed>
+    */
+    private function resolveParameters(object $controller, string $method): array
+    {
+        $reflection = new \ReflectionMethod($controller, $method);
+
+        $parameters = [];
+
+        foreach ($reflection->getParameters() as $parameter) {
+
+            $type = $parameter->getType();
+
+            if (!$type || $type->isBuiltin()) {
+                continue;
+            }
+
+            $className = $type->getName();
+
+            if ($className === Request::class) {
+                $parameters[] = Request::fromHttp();
+                continue;
+            }
+
+            $parameters[] = $this->container->get($className);
+        }
+
+        return $parameters;
     }
 }

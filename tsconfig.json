@@ -10,7 +10,12 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "allowJs": false
+    "allowJs": false,
+
+    "baseUrl": "./resources",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "include": [
     "resources/ts/**/*.ts",

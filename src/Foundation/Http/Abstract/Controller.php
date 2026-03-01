@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Foundation\Http;
+namespace App\Foundation\Http\Abstract;
 
 use App\Foundation\Template\View;
 

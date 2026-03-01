@@ -1,10 +1,10 @@
-// config/resolvePage.ts
+// 📄 app/config/inertia/resolvePage.ts
 
 import type { DefineComponent } from 'vue'
 
 const pages = import.meta.glob([
-  '../Pages/**/*.vue',
-  '../Errors/**/*.vue'
+  '@/ts/pages/**/*.vue',
+  '@/ts/errors/**/*.vue'
 ])
 
 export async function resolvePage(name: string): Promise<DefineComponent> {
