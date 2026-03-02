@@ -1,4 +1,4 @@
-// 📄 features/scraper/services/contracts/scrapeItem.ts
+// 📄 features/scraper/contracts/scrapeItem.ts
 
 export interface ScrapeItem {
   readonly title: string

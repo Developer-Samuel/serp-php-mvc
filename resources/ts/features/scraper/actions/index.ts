@@ -1,7 +1,7 @@
 // 📄 features/scraper/actions/index.ts
 
 import type { Ref } from 'vue'
-import type { ScrapeResponse } from '@/ts/features/scraper/services/contracts/scrapeResponse'
+import type { ScrapeResponse } from '@/ts/features/scraper/contracts/scrapeResponse'
 
 import { createSearchAction } from '@/ts/features/scraper/actions/search/search'
 import { createDownloadAction } from '@/ts/features/scraper/actions/download/downloadJson'

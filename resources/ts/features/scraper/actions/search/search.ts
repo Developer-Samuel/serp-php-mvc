@@ -1,7 +1,7 @@
 // 📄 features/scraper/actions/search/search.ts
 
 import type { Ref } from 'vue'
-import type { ScrapeResponse } from '@/ts/features/scraper/services/contracts/scrapeResponse'
+import type { ScrapeResponse } from '@/ts/features/scraper/contracts/scrapeResponse'
 
 import { scraperService } from '@/ts/features/scraper/services/scraperService'
 import { useLoading } from '@/ts/composables/loading/useLoading'

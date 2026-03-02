@@ -1,7 +1,7 @@
 // 📄 features/scraper/contracts/useScrape.contract.ts
 
 import type { Ref } from 'vue'
-import type { ScrapeResponse } from '@/ts/features/scraper/services/contracts/scrapeResponse'
+import type { ScrapeResponse } from '@/ts/features/scraper/contracts/scrapeResponse'
 
 export interface UseScrape {
   readonly keyword: Ref<string>

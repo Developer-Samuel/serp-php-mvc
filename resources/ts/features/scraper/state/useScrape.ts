@@ -1,7 +1,7 @@
 // 📄 features/scraper/state/useScrape.ts
 
 import { ref, type Ref } from 'vue'
-import type { ScrapeResponse } from '@/ts/features/scraper/services/contracts/scrapeResponse'
+import type { ScrapeResponse } from '@/ts/features/scraper/contracts/scrapeResponse'
 
 export const useScrapeState = () => {
   const keyword: Ref<string> = ref('')

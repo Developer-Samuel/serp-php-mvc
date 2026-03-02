@@ -1,7 +1,7 @@
 // 📄 features/scraper/actions/download/downloadJson.ts
 
 import type { Ref } from 'vue'
-import type { ScrapeResponse } from '@/ts/features/scraper/services/contracts/scrapeResponse'
+import type { ScrapeResponse } from '@/ts/features/scraper/contracts/scrapeResponse'
 
 export const createDownloadAction = (
   keyword: Ref<string>,

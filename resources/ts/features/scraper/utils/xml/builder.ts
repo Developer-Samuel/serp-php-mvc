@@ -1,6 +1,6 @@
 // 📄 features/scraper/utils/xml/builder.ts
 
-import type { ScrapeItem } from '@/ts/features/scraper/services/contracts/scrapeItem'
+import type { ScrapeItem } from '@/ts/features/scraper/contracts/scrapeItem'
 
 export function buildXml(items: ScrapeItem[]): string {
   const indent = (level: number) => '  '.repeat(level)

@@ -1,8 +1,8 @@
 // 📄 features/scraper/actions/download/downloadXml.ts
 
 import type { Ref } from 'vue'
-import type { ScrapeResponse } from '@/ts/features/scraper/services/contracts/scrapeResponse'
-import type { ScrapeItem } from '@/ts/features/scraper/services/contracts/scrapeItem'
+import type { ScrapeResponse } from '@/ts/features/scraper/contracts/scrapeResponse'
+import type { ScrapeItem } from '@/ts/features/scraper/contracts/scrapeItem'
 
 import { buildXml } from '@/ts/features/scraper/utils/xml/builder'
 import { downloadXmlFile } from '@/ts/features/scraper/utils/xml/downloader'

@@ -1,6 +1,6 @@
 // 📄 features/scraper/utils/xml/mapper.ts
 
-import type { ScrapeItem } from '@/ts/features/scraper/services/contracts/scrapeItem'
+import type { ScrapeItem } from '@/ts/features/scraper/contracts/scrapeItem'
 
 export function mapItem(item: any): ScrapeItem {
   return {
