@@ -26,6 +26,14 @@
             "Composer\\Config::disableProcessTimeout",
             "php bin/phpunit --testdox"
         ],
+        "eslint": [
+            "Composer\\Config::disableProcessTimeout",
+            "npm run lint"
+        ],
+        "eslint:fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "npm run lint:fix"
+        ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "npm run dev"

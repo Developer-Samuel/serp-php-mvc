@@ -1,4 +1,4 @@
-// 📄 features/scraper/state/useScrape.ts
+// 📄 features/scraper/state/useScrapeState.ts
 
 import { ref, type Ref } from 'vue'
 import type { ScrapeResponse } from '@/ts/features/scraper/contracts/scrapeResponse'
