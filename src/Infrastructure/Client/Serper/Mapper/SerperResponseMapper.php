@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Client\Serper\Mapper;
 
+use App\Infrastructure\Client\Serper\Mapper\Contract\SerperResponseMapperContract;
+
 /**
  * @phpstan-type OrganicItem array{
  *     title: string,
@@ -11,7 +13,7 @@ namespace App\Infrastructure\Client\Serper\Mapper;
  *     description: string
  * }
 */
-final class SerperResponseMapper
+final class SerperResponseMapper implements SerperResponseMapperContract
 {
     /**
      * @param array<string, mixed> $data

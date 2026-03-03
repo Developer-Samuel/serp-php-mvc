@@ -27,7 +27,7 @@ enum AssetType: string
             'scss' => self::SCSS,
             'ts'  => self::TYPESCRIPT,
             'js'  => self::JAVASCRIPT,
-            default => throw new \InvalidArgumentException("Unsupported extension: . {$extension}"),
+            default => throw new \InvalidArgumentException('Unsupported extension: . ' . $extension),
         };
     }
 

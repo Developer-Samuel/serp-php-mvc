@@ -11,7 +11,7 @@ use App\Foundation\{
 
 final class Application
 {
-    private static self $instance;
+    private static ?self $instance = null;
 
     private readonly Container $container;
 

@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use PHPUnit\TextUI\Application;
+
+$application = new Application();
+
+$exitCode = $application->run($_SERVER['argv']);
+
+exit($exitCode);

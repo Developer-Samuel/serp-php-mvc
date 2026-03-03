@@ -7,10 +7,10 @@ namespace App\Application\Services;
 use App\Foundation\Logging\Log;
 
 use App\Infrastructure\{
-    Client\Serper\Adapter\SerperClient,
-    Client\Serper\Connection\SerperConnection,
-    Client\Serper\Mapper\SerperResponseMapper,
-    Client\Serper\Factory\SerperConnectionFactory
+    Client\Serper\Adapter\Contract\SerperClientContract,
+    Client\Serper\Connection\Contract\SerperConnectionContract,
+    Client\Serper\Factory\Contract\SerperConnectionFactoryContract,
+    Client\Serper\Mapper\Contract\SerperResponseMapperContract
 };
 
 use App\Application\Services\Contract\ScraperContract;
@@ -32,14 +32,14 @@ use App\Application\Services\Contract\ScraperContract;
 final readonly class ScraperService implements ScraperContract
 {
     /**
-     * @param SerperClient $client
-     * @param SerperResponseMapper $mapper
-     * @param SerperConnectionFactory $factory
+     * @param SerperClientContract $client
+     * @param SerperResponseMapperContract $mapper
+     * @param SerperConnectionFactoryContract $factory
     */
     public function __construct(
-        private SerperClient $client,
-        private SerperResponseMapper $mapper,
-        private SerperConnectionFactory $factory
+        private SerperClientContract $client,
+        private SerperResponseMapperContract $mapper,
+        private SerperConnectionFactoryContract $factory
     ) {}
 
     /**
@@ -79,20 +79,20 @@ final readonly class ScraperService implements ScraperContract
     }
 
     /**
-     * @return SerperConnection
+     * @return SerperConnectionContract
     */
-    private function getConnection(): SerperConnection
+    private function getConnection(): SerperConnectionContract
     {
         return $this->factory->search(BASE_PATH);
     }
 
     /**
      * @param string $keyword
-     * @param SerperConnection $connection
+     * @param SerperConnectionContract $connection
      * 
      * @return array<string, mixed>|null
     */
-    private function fetchResults(string $keyword, SerperConnection $connection): ?array
+    private function fetchResults(string $keyword, SerperConnectionContract $connection): ?array
     {
         /** @var array<string, mixed>|null $result */
         $result = $this->client->search(

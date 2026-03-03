@@ -7,7 +7,7 @@ namespace App\Foundation\Http;
 final readonly class Request
 {
     /**
-     * @param array<string, mixed> $data
+     * @param array<mixed> $data
     */
     public function __construct(
         public array $data

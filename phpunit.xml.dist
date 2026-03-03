@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="bootstrap/app.php"
+    colors="true"
+>
+    <php>
+        <ini name="display_errors" value="1" />
+        <ini name="error_reporting" value="E_ALL"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="src">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
+
+    <coverage>
+        <report>
+            <html outputDirectory="storage/tools/phpunit/html"/>
+            <clover outputFile="storage/tools/phpunit/clover.xml"/>
+        </report>
+    </coverage>
+</phpunit>

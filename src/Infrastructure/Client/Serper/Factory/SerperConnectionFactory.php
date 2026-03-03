@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Client\Serper\Factory;
 
-use App\Infrastructure\Client\Serper\Connection\SerperConnection;
+use App\Infrastructure\{
+    Client\Serper\Connection\Contract\SerperConnectionContract,
+    Client\Serper\Connection\SerperConnection,
+    Client\Serper\Factory\Contract\SerperConnectionFactoryContract
+};
 
-final class SerperConnectionFactory
+final class SerperConnectionFactory implements SerperConnectionFactoryContract
 {
     /**
      * @param string $basePath
      * 
-     * @return SerperConnection
+     * @return SerperConnectionContract
     */
-    public static function search(string $basePath): SerperConnection
+    public function search(string $basePath): SerperConnectionContract
     {
         $path = rtrim($basePath, '/\\')
             . DIRECTORY_SEPARATOR
@@ -36,8 +40,8 @@ final class SerperConnectionFactory
         }
 
         return new SerperConnection(
-            self::getString($serper, 'url'),
-            self::getString($serper, 'key')
+            $this->getString($serper, 'url'),
+            $this->getString($serper, 'key')
         );
     }
 
@@ -47,7 +51,7 @@ final class SerperConnectionFactory
      * 
      * @return string
     */
-    private static function getString(array $data, string $key): string
+    private function getString(array $data, string $key): string
     {
         return isset($data[$key]) && is_string($data[$key])
             ? $data[$key]

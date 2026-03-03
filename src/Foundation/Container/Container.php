@@ -59,27 +59,44 @@ final class Container
      * 
      * @return object
      * 
-     * @throws \ReflectionException|\LogicException
-     */
+     * @throws \LogicException
+    */
     private function resolve(string $id): object
     {
+        if (interface_exists($id)) {
+            throw new \LogicException(
+                sprintf('Cannot resolve interface [%s]. No binding found.', $id)
+            );
+        }
+
         if (!class_exists($id)) {
-            throw new \LogicException(sprintf('Target class [%s] does not exist.', $id));
+            throw new \LogicException(
+                sprintf('Target class [%s] does not exist.', $id)
+            );
         }
 
         $reflection = $this->getReflection($id);
+        if ($reflection->isAbstract()) {
+            throw new \LogicException(
+                sprintf('Cannot instantiate abstract class [%s].', $id)
+            );
+        }
 
         $constructor = $reflection->getConstructor();
         if ($constructor === null) {
-            $instance = new $id();
-            return $this->setInstance($id, $instance);
+            return $this->setInstance($id, new $id());
         }
 
-        $dependencies = $this->resolveParameters($constructor->getParameters());
+        $dependencies = $this->resolveParameters(
+            $constructor->getParameters()
+        );
 
         $instance = $reflection->newInstanceArgs($dependencies);
 
-        return $this->setInstance($id, $instance);
+        return $this->setInstance(
+            $id,
+            $instance
+        );
     }
 
     /**

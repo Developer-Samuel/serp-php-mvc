@@ -1,0 +1,76 @@
+{
+  "empty input": {
+    "input": {},
+    "expected": []
+  },
+
+  "knowledge graph": {
+    "input": {
+      "knowledgeGraph": {
+        "title": "  Test Title",
+        "website": "https://example.com",
+        "description": "Description"
+      }
+    },
+    "expected": [
+      {
+        "title": "Test Title",
+        "link": "https://example.com",
+        "description": "Description"
+      }
+    ]
+  },
+
+  "organic row": {
+    "input": {
+      "organic": [
+        {
+          "title": "Organic Title",
+          "link": "https://example.com",
+          "snippet": "Organic Description"
+        }
+      ]
+    },
+    "expected": [
+      {
+        "title": "Organic Title",
+        "link": "https://example.com",
+        "description": "Organic Description"
+      }
+    ]
+  },
+
+  "invalid organic row": {
+    "input": {
+      "organic": ["invalid-row"]
+    },
+    "expected": []
+  },
+
+  "merge knowledge and organic": {
+    "input": {
+      "knowledgeGraph": {
+        "title": "KG"
+      },
+      "organic": [
+        {
+          "title": "Org",
+          "link": "link",
+          "snippet": "desc"
+        }
+      ]
+    },
+    "expected": [
+      {
+        "title": "KG",
+        "link": "",
+        "description": ""
+      },
+      {
+        "title": "Org",
+        "link": "link",
+        "description": "desc"
+      }
+    ]
+  }
+}

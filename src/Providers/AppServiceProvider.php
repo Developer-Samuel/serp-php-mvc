@@ -10,6 +10,14 @@ use App\Foundation\{
 };
 
 use App\Infrastructure\{
+    Client\Serper\Adapter\Contract\SerperClientContract,
+    Client\Serper\Adapter\SerperClient,
+    Client\Serper\Connection\Contract\SerperConnectionContract,
+    Client\Serper\Connection\SerperConnection,
+    Client\Serper\Factory\Contract\SerperConnectionFactoryContract,
+    Client\Serper\Factory\SerperConnectionFactory,
+    Client\Serper\Mapper\Contract\SerperResponseMapperContract,
+    Client\Serper\Mapper\SerperResponseMapper,
     Logging\Contract\LoggerContract,
     Logging\MonologLogger
 };
@@ -29,6 +37,7 @@ final class AppServiceProvider
     public function register(Container $container): void
     {
         $this->registerLogger($container);
+        $this->registerSerperBindings($container);
         $this->registerService($container);
     }
 
@@ -51,6 +60,19 @@ final class AppServiceProvider
         $logger = $container->get(LoggerContract::class);
         
         Log::init($logger);
+    }
+
+    /**
+     * @param Container $container
+     * 
+     * @return void
+    */
+    private function registerSerperBindings(Container $container): void
+    {
+        $container->set(SerperClientContract::class, SerperClient::class);
+        $container->set(SerperConnectionContract::class, SerperConnection::class);
+        $container->set(SerperResponseMapperContract::class, SerperResponseMapper::class);
+        $container->set(SerperConnectionFactoryContract::class, SerperConnectionFactory::class);
     }
 
     /**

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Client\Serper\Adapter;
 
-final class SerperClient
+use App\Infrastructure\Client\Serper\Adapter\Contract\SerperClientContract;
+
+final class SerperClient implements SerperClientContract
 {
     /**
      * @param string $keyword

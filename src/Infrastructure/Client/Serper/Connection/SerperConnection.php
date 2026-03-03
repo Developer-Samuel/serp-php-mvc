@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Client\Serper\Connection;
 
-final readonly class SerperConnection
+use App\Infrastructure\Client\Serper\Connection\Contract\SerperConnectionContract;
+
+final readonly class SerperConnection implements SerperConnectionContract
 {
     /**
      * @param string $url

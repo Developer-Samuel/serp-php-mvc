@@ -23,7 +23,5 @@ final class Handler
                 'message' => $message
             ]
         );
-        
-        exit;
     }
 }

@@ -87,10 +87,12 @@ final class Router
         $parameters = [];
 
         foreach ($reflection->getParameters() as $parameter) {
-
             $type = $parameter->getType();
+            if (!$type instanceof \ReflectionNamedType) {
+                continue;
+            }
 
-            if (!$type || $type->isBuiltin()) {
+            if ($type->isBuiltin()) {
                 continue;
             }
 
