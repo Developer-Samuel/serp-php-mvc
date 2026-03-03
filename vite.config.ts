@@ -1,30 +1,15 @@
-import path from 'path';
+// 📄 vite.config.ts
+
 import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import tailwindcss from '@tailwindcss/vite';
+
+import plugins from "./vite/plugins.vite";
+import resolve from "./vite/resolve.vite";
+import build from "./vite/build.vite";
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    tailwindcss()
-  ],
-
   publicDir: false,
 
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'resources'),
-    },
-  },
-
-  build: {
-    outDir: "public/build",
-    manifest: true,
-    emptyOutDir: true,
-    rollupOptions: {
-      input: [
-        "resources/ts/app.ts"
-      ]
-    }
-  }
+  plugins,
+  ...resolve,
+  ...build
 });
