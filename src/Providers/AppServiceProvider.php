@@ -4,23 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Foundation\{
-    Container\Container,
-    Logging\Log
-};
-
-use App\Infrastructure\{
-    Client\Serper\Adapter\Contract\SerperClientContract,
-    Client\Serper\Adapter\SerperClient,
-    Client\Serper\Connection\Contract\SerperConnectionContract,
-    Client\Serper\Connection\SerperConnection,
-    Client\Serper\Factory\Contract\SerperConnectionFactoryContract,
-    Client\Serper\Factory\SerperConnectionFactory,
-    Client\Serper\Mapper\Contract\SerperResponseMapperContract,
-    Client\Serper\Mapper\SerperResponseMapper,
-    Logging\Contract\LoggerContract,
-    Logging\MonologLogger
-};
+use App\Foundation\Container\Container;
 
 use App\Application\{
     Services\Contract\ScraperContract,
@@ -36,9 +20,7 @@ final class AppServiceProvider
     */
     public function register(Container $container): void
     {
-        $this->registerLogger($container);
-        $this->registerSerperBindings($container);
-        $this->registerService($container);
+        $this->registerServices($container);
     }
 
     /**
@@ -46,41 +28,7 @@ final class AppServiceProvider
      * 
      * @return void
     */
-    private function registerLogger(Container $container): void
-    {
-        $container->set(
-            LoggerContract::class,
-            static fn (Container $c): LoggerContract => new MonologLogger(
-                BASE_PATH . '/storage/logs/app.log', 
-                'app'
-            )
-        );
-
-        /** @var LoggerContract $logger */
-        $logger = $container->get(LoggerContract::class);
-        
-        Log::init($logger);
-    }
-
-    /**
-     * @param Container $container
-     * 
-     * @return void
-    */
-    private function registerSerperBindings(Container $container): void
-    {
-        $container->set(SerperClientContract::class, SerperClient::class);
-        $container->set(SerperConnectionContract::class, SerperConnection::class);
-        $container->set(SerperResponseMapperContract::class, SerperResponseMapper::class);
-        $container->set(SerperConnectionFactoryContract::class, SerperConnectionFactory::class);
-    }
-
-    /**
-     * @param Container $container
-     * 
-     * @return void
-    */
-    private function registerService(Container $container): void
+    private function registerServices(Container $container): void
     {
         $container->set(ScraperContract::class, ScraperService::class);
     }
