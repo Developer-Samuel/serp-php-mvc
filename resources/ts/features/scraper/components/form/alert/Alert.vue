@@ -1,10 +1,7 @@
 <!-- 📄 features/scraper/components/form/alert/Alert.vue -->
 
 <template>
-  <div
-    v-if="message"
-    :class="[wrapperClass, 'w-full rounded-xl p-2']"
-  >
+  <div v-if="message" :class="[wrapperClass, 'w-full rounded-xl p-2']">
     <div class="text-lg font-bold text-center">
       {{ message }}
     </div>
@@ -12,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  message: string | null
-  wrapperClass?: string
-}>()
+defineProps<{
+  message: string | null;
+  wrapperClass?: string;
+}>();
 </script>

@@ -1,10 +1,7 @@
 <!-- 📄 features/scraper/components/form/actions/Button.vue -->
 
 <template>
-  <button
-    :type="type ?? 'button'"
-    :class="[baseClass, className]"
-  >
+  <button :type="type ?? 'button'" :class="[baseClass, className]">
     <slot>
       {{ body }}
     </slot>
@@ -12,16 +9,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
-const props = defineProps<{
-  type?: HTMLButtonElement['type']
-  body?: string | null
-  class?: string | null
-}>()
+import type { Button } from '@/ts/features/scraper/components/form/actions/contracts/button';
 
-const baseClass =
-  'px-3 py-1 transition-linear duration-500 focus:ring-1 focus:ring-blue-600 cursor-pointer'
+const props = defineProps<Button>();
 
-const className = computed(() => props.class ?? '')
+const baseClass = 'px-3 py-1 transition-linear duration-500 focus:ring-1 focus:ring-blue-600 cursor-pointer';
+
+const className = computed(() => props.class ?? '');
 </script>

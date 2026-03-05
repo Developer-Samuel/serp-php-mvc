@@ -1,7 +1,7 @@
 // 📄 app/config/plugins/registerPlugins.ts
 
-import type { App } from 'vue'
+import type { App, Plugin } from 'vue';
 
-export const registerPlugins = (app: App, inertiaPlugin: any) => {
-  app.use(inertiaPlugin)
-}
+export const registerPlugins = (app: App, inertiaPlugin: Plugin): void => {
+  app.use(inertiaPlugin);
+};

@@ -1,3 +1,3 @@
 // 📄 app.ts
 
-import '@/ts/app/bootstrap'
+import '@/ts/app/bootstrap';
