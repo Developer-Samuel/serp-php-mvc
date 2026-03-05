@@ -19,6 +19,6 @@ final class AssetPathResolver
     {
         $type = AssetType::fromPath($path);
         
-        return sprintf('resources/%s/%s', $type->getFolder(), $path);
+        return sprintf('assets/%s/%s', $type->getFolder(), $path);
     }
 }

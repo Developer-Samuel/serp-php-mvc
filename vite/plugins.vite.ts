@@ -1,9 +1,6 @@
 // 📄 vite/plugins.vite.ts
 
-import vue from "@vitejs/plugin-vue";
-import tailwindcss from "@tailwindcss/vite";
+import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/vite';
 
-export default [
-    vue(),
-    tailwindcss()
-];
+export default [vue(), tailwindcss()];

@@ -12,6 +12,6 @@ abstract class Controller
 
     public function __construct()
     {
-        $this->view = new View(BASE_PATH . '/resources/views');
+        $this->view = new View(BASE_PATH . '/views');
     }
 }

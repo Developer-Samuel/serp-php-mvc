@@ -55,7 +55,7 @@ final class InertiaResponse
     {
         $_SERVER['INERTIA_PAGE'] = $page;
 
-        include BASE_PATH . '/resources/views/app.php';
+        include BASE_PATH . '/views/app.php';
 
         exit;
     }

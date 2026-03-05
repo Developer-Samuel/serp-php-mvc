@@ -1,9 +1,9 @@
 // 🧰 support/tools/eslint/plugins/vue.js
 
-import vue from 'eslint-plugin-vue'
-import vueParser from 'vue-eslint-parser'
-import tseslint from 'typescript-eslint'
-import { VUE_FILES } from '../constants/files.js'
+import vue from 'eslint-plugin-vue';
+import vueParser from 'vue-eslint-parser';
+import tseslint from 'typescript-eslint';
+import { VUE_FILES } from '../constants/files.js';
 
 export const vuePlugin = {
   files: VUE_FILES,
@@ -33,4 +33,4 @@ export const vuePlugin = {
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
   },
-}
+};

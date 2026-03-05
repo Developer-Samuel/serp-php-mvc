@@ -12,13 +12,10 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
 
-    "baseUrl": "./resources",
+    "baseUrl": "./assets",
     "paths": {
       "@/*": ["*"]
     }
   },
-  "include": [
-    "resources/ts/**/*.ts",
-    "resources/ts/**/*.vue"
-  ]
+  "include": ["assets/ts/**/*.ts", "assets/ts/**/*.vue"]
 }

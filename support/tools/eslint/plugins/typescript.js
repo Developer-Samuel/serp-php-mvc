@@ -1,10 +1,10 @@
 // 🧰 support/tools/eslint/plugins/typescript.js
 
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
-import prettierPlugin from 'eslint-plugin-prettier'
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-import { TYPESCRIPT_FILES } from '../constants/files.js'
+import { TYPESCRIPT_FILES } from '../constants/files.js';
 
 export const typescriptPlugin = {
   files: TYPESCRIPT_FILES,
@@ -24,10 +24,7 @@ export const typescriptPlugin = {
   rules: {
     'prettier/prettier': 'error',
 
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { argsIgnorePattern: '^_' },
-    ],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 
     '@typescript-eslint/no-unused-expressions': [
       'error',
@@ -37,4 +34,4 @@ export const typescriptPlugin = {
       },
     ],
   },
-}
+};

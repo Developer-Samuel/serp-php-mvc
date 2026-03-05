@@ -3,9 +3,9 @@
 import path from 'path';
 
 export default {
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, '../resources'),
-        },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, '../assets'),
     },
+  },
 };
