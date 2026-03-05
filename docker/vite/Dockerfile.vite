@@ -1,0 +1,9 @@
+# 📁 docker/vite/Dockerfile.vite
+
+FROM node:24-bullseye-slim
+
+WORKDIR /var/www
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

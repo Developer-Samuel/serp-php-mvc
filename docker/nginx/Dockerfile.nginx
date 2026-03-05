@@ -1,0 +1,17 @@
+# 📁 docker/nginx/Dockerfile.nginx
+
+FROM nginx:1.25-bullseye
+
+# Install useful network troubleshooting tools inside nginx container
+RUN apt-get update && apt-get install -y \
+    iputils-ping \
+    telnet \
+    netcat-openbsd \
+  && rm -rf /var/lib/apt/lists/*
+
+# Run nginx in foreground mode (daemon off) to keep container alive
+CMD ["nginx", "-g", "daemon off;"]
+
+# Healthcheck to verify nginx is serving requests correctly
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/ || exit 1

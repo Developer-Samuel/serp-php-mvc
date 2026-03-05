@@ -1,0 +1,121 @@
+# 📁 docker-compose.yml
+
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+# 🧱 Build & Runtime Base Configuration
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+
+x-app-base: &app-base
+  build:
+    context: ./docker
+    dockerfile: Dockerfile
+  working_dir: /var/www
+  volumes:
+    - .:/var/www:delegated
+    - ./node_modules:/var/www/node_modules:cached
+    - ./storage:/var/www/storage:cached
+    - ./vendor:/var/www/vendor:cached
+  networks:
+    - app-network
+  logging:
+    driver: 'json-file'
+    options:
+      max-size: '10m'
+      max-file: '3'
+
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+# 🚦 Resource Allocation per App Container
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+
+# 🛢️ App deploy
+x-app-deploy: &app-deploy
+  resources:
+    limits:
+      cpus: '4.0'
+      memory: 4G
+    reservations:
+      cpus: '1.0'
+      memory: 1G
+
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+# 🔧 Service Blueprints
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+
+# PHP main container
+x-service-app: &service-app
+  container_name: serp_php_mvc_app
+  command: []
+  <<: *app-base
+  deploy:
+    <<: *app-deploy
+
+# Setup container
+x-service-app-setup: &service-app-setup
+  container_name: serp_php_mvc_app_setup
+  profiles: ['setup']
+  command: ['setup']
+  <<: *app-base
+  deploy:
+    <<: *app-deploy
+
+# Nginx as a webserver proxy for the Laravel app
+x-service-webserver: &service-webserver
+  container_name: serp_php_mvc_app_nginx
+  volumes:
+    - .:/var/www:delegated
+    - ./docker/nginx/config:/etc/nginx/conf.d
+  ports:
+    - '8000:80'
+  dns: 8.8.8.8
+  build:
+    context: ./docker/nginx
+    dockerfile: Dockerfile.nginx
+  depends_on:
+    - app
+  networks:
+    - app-network
+
+# Vite (frontend builder)
+x-service-vite: &service-vite
+  container_name: serp_php_mvc_app_vite
+  profiles: ['dev']
+  build:
+    context: ./docker/vite
+    dockerfile: Dockerfile.vite
+  working_dir: /var/www
+  volumes:
+    - ./:/var/www
+  ports:
+    - '5173:5173'
+  networks:
+    - app-network
+  depends_on:
+    - app
+
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+# 🚀 Final Service Wiring (The Actual Boot Order)
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+
+services:
+  # PHP Service
+  app:
+    <<: *service-app
+
+  # PHP Setup Service
+  app_setup:
+    <<: *service-app-setup
+
+  # Nginx Service
+  webserver:
+    <<: *service-webserver
+
+  # Vite Service
+  vite:
+    <<: *service-vite
+
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+# 🕸️ Networks & Volumes
+# ──────────────────────────────────────────────────────────────────────────────────────────────
+
+networks:
+  app-network:
+    driver: bridge

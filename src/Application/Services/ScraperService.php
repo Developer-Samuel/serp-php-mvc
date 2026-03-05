@@ -62,7 +62,7 @@ final readonly class ScraperService implements ScraperContract
 
             $results = $this->mapResults($response);
             if ($results === []) {
-                return $this->errorResponse('No organic results found', 404);
+                return $this->errorResponse('No results found', 404);
             }
 
             return [
