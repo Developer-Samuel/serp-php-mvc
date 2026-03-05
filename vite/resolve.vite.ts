@@ -5,7 +5,7 @@ import path from 'path';
 export default {
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../assets'),
+      '@': path.resolve(__dirname, '../resources'),
     },
   },
 };

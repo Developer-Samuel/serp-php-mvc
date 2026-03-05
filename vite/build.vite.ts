@@ -6,7 +6,7 @@ export default {
     manifest: true,
     emptyOutDir: true,
     rollupOptions: {
-      input: ['assets/ts/app.ts'],
+      input: ['resources/ts/app.ts'],
     },
   },
 };

@@ -10,15 +10,15 @@ final class AssetPathResolver
 {
     /**
      * @param string $path
-     * 
+     *
      * @return string
-     * 
+     *
      * @throws \InvalidArgumentException
     */
     public static function resolve(string $path): string
     {
         $type = AssetType::fromPath($path);
-        
-        return sprintf('assets/%s/%s', $type->getFolder(), $path);
+
+        return sprintf('resources/%s/%s', $type->getFolder(), $path);
     }
 }

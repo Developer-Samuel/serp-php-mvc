@@ -12,7 +12,7 @@ final class InertiaResponse
 {
     /**
      * @param InertiaPage $page
-     * 
+     *
      * @return void
     */
     public static function send(InertiaPage $page): void
@@ -35,7 +35,7 @@ final class InertiaResponse
 
     /**
      * @param InertiaPage $page
-     * 
+     *
      * @return void
     */
     private static function sendJsonResponse(InertiaPage $page): void
@@ -48,14 +48,14 @@ final class InertiaResponse
 
     /**
      * @param InertiaPage $page
-     * 
+     *
      * @return void
     */
     private static function renderView(InertiaPage $page): void
     {
         $_SERVER['INERTIA_PAGE'] = $page;
 
-        include BASE_PATH . '/views/app.php';
+        include BASE_PATH . '/resources/views/app.php';
 
         exit;
     }
