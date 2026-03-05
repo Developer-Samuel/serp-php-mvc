@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import Button from '@/ts/features/scraper/components/form/actions/Button.vue';
+import Button from '@/ts/components/actions/Button.vue';
 
 defineProps<{
   results: unknown;

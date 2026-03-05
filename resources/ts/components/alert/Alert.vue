@@ -1,4 +1,4 @@
-<!-- 📄 features/scraper/components/form/alert/Alert.vue -->
+<!-- 📄 components/alert/Alert.vue -->
 
 <template>
   <div v-if="message" :class="[wrapperClass, 'w-full rounded-xl p-2']">

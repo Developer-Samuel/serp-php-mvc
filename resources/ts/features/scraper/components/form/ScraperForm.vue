@@ -13,9 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import Button from '@/ts/features/scraper/components/form/actions/Button.vue';
-import Alert from '@/ts/features/scraper/components/form/alert/Alert.vue';
-import Input from '@/ts/features/scraper/components/form/fields/Input.vue';
+import Button from '@/ts/components/actions/Button.vue';
+import Alert from '@/ts/components/alert/Alert.vue';
+import Input from '@/ts/components/form/fields/Input.vue';
 
 const model = defineModel<string>({
   required: true,

@@ -1,4 +1,4 @@
-<!-- 📄 features/scraper/components/form/actions/Button.vue -->
+<!-- 📄 components/actions/Button.vue -->
 
 <template>
   <button :type="type ?? 'button'" :class="[baseClass, className]">
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import type { Button } from '@/ts/features/scraper/components/form/actions/contracts/button';
+import type { Button } from '@/ts/components/actions/contracts/button';
 
 const props = defineProps<Button>();
 

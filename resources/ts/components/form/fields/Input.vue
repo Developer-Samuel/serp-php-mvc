@@ -1,4 +1,4 @@
-<!-- 📄 features/scraper/components/form/fields/Input.vue -->
+<!-- 📄 components/form/fields/Input.vue -->
 
 <template>
   <input v-model="model" :class="[baseClass, className]" :placeholder="placeholder" />
