@@ -11,8 +11,7 @@ use Rector\{
     DeadCode\Rector\ClassMethod\RemoveUselessReturnTagRector,
     DeadCode\Rector\For_\RemoveDeadIfForeachForRector,
     DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector,
-    DeadCode\Rector\Switch_\RemoveDuplicatedCaseInSwitchRector,
-    TypeDeclaration\Rector\ClassMethod\AddMethodCallBasedStrictParamTypeRector
+    DeadCode\Rector\Switch_\RemoveDuplicatedCaseInSwitchRector
 };
 
 return [
@@ -29,7 +28,5 @@ return [
     NewlineBetweenClassLikeStmtsRector::class,
     NullableCompareToNullRector::class,
 
-    // TypeDeclaration
-    AddMethodCallBasedStrictParamTypeRector::class,
     '#.*empty.*#i'
 ];

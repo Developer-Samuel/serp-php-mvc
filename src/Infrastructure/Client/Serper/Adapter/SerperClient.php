@@ -12,7 +12,7 @@ final class SerperClient implements SerperClientContract
      * @param string $keyword
      * @param string $url
      * @param string $key
-     * 
+     *
      * @return array<mixed>|null
     */
     public function search(string $keyword, string $url, string $key): ?array
@@ -39,7 +39,7 @@ final class SerperClient implements SerperClientContract
     /**
      * @param string $keyword
      * @param string $key
-     * 
+     *
      * @return array<int, mixed>
     */
     private function buildCurlOptions(string $keyword, string $key): array
@@ -56,7 +56,7 @@ final class SerperClient implements SerperClientContract
 
     /**
      * @param string $keyword
-     * 
+     *
      * @return string
     */
     private function buildPayload(string $keyword): string
@@ -73,7 +73,7 @@ final class SerperClient implements SerperClientContract
 
     /**
      * @param string $key
-     * 
+     *
      * @return array<int, string>
     */
     private function buildHeaders(string $key): array

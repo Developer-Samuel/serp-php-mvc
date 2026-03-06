@@ -1,6 +1,7 @@
+.env
 public/build
 .phpunit.result.cache
 node_modules
 storage
 vendor
-.env
+.vscode
