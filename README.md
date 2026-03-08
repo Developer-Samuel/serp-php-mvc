@@ -40,9 +40,9 @@ It integrates with the Serper API to execute Google search queries, retrieve the
 - ✅ Static analysis with PHPStan (Level 10)
 - ✅ Automated code refactoring with Rector
 
-### CI / DevOps
+### CI/CD & DevOps
 
-- ✅ GitHub Actions CI pipeline
+- ✅ GitHub Actions CI/CD pipeline
 - ✅ Automated testing on push & pull requests
 - ✅ Dockerized development environment
 - ✅ Pre-configured development scripts

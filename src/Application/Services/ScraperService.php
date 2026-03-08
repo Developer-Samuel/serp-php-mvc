@@ -44,7 +44,7 @@ final readonly class ScraperService implements ScraperContract
 
     /**
      * @param string $keyword
-     * 
+     *
      * @return ScrapeResult
     */
     public function scrape(string $keyword): array
@@ -89,7 +89,7 @@ final readonly class ScraperService implements ScraperContract
     /**
      * @param string $keyword
      * @param SerperConnectionContract $connection
-     * 
+     *
      * @return array<string, mixed>|null
     */
     private function fetchResults(string $keyword, SerperConnectionContract $connection): ?array
@@ -106,7 +106,7 @@ final readonly class ScraperService implements ScraperContract
 
     /**
      * @param array<string, mixed> $response
-     * 
+     *
      * @return array<int, OrganicItem>
     */
     private function mapResults(array $response): array
@@ -117,7 +117,7 @@ final readonly class ScraperService implements ScraperContract
     /**
      * @param string $message
      * @param int $status
-     * 
+     *
      * @return ScrapeResult
     */
     private function errorResponse(string $message, int $status): array
