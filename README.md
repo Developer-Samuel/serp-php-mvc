@@ -26,7 +26,7 @@ It integrates with the Serper API to execute Google search queries, retrieve the
 
 - ✅ Vanilla PHP
 - ✅ Layered MVC-based architecture
-- ✅ Serper API integration
+- ✅ Serper API integration - [serper.dev](https://serper.dev)
 - ✅ Structured logging with custom logger implementation
 - ✅ Fetch top 10 search results
 - ✅ Export results as JSON
@@ -52,6 +52,7 @@ It integrates with the Serper API to execute Google search queries, retrieve the
 - ✅ Vue.js
 - ✅ TypeScript
 - ✅ TailwindCSS
+- ✅ Inertia.js (SPA-style frontend via backend routing)
 - ✅ ESLint for code quality
 - ✅ Prettier for consistent formatting
 
