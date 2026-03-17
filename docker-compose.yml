@@ -57,7 +57,7 @@ x-service-app-setup: &service-app-setup
   deploy:
     <<: *app-deploy
 
-# Nginx as a webserver proxy for the Laravel app
+# Nginx as a webserver proxy for the app
 x-service-webserver: &service-webserver
   container_name: serp_php_mvc_app_nginx
   volumes:

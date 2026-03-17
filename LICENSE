@@ -1,30 +1,25 @@
-## 📝 License
+# 📝 License
 
-This project is distributed under the terms of the **Samuel Šteiner License**.
+This project is distributed under the **Samuel Šteiner License**.
 
-### Ownership
+## Ownership
 
-All source code, architecture, and design remain the intellectual property of the author.
+All source code, architecture, and design remain the intellectual
+property of Samuel Šteiner.
 
-### Permissions
+## Permissions
 
-- ✅ Free for personal, educational, and internal non-commercial use.
-- ✅ You may study, modify, and adapt the code for development purposes.
-- ✅ Internal deployment in a private infrastructure is permitted if not used as a commercial product.
+- ✅ Free for personal, educational, and internal non-commercial use
+- ✅ You may study, modify, and adapt the code for learning purposes
+- ✅ Internal deployment in private infrastructure is permitted if not used as a commercial product
 
-### Restrictions
+## Restrictions
 
-- ❌ Commercial use, resale, redistribution, or integration into a paid product or service is strictly prohibited without written permission.
-- ❌ You may not redistribute modified or unmodified versions of the project.
-- ❌ You may not remove this license notice or claim ownership of the codebase.
-- ❌ You may not reverse engineer the project for the purpose of creating a competing product.
+- ❌ Commercial use, resale, redistribution, or integration into a paid product or service is strictly prohibited without written permission from the author
+- ❌ You may not redistribute modified or unmodified versions
+- ❌ You may not remove this license notice or claim ownership
+- ❌ You may not reverse engineer for competing product purposes
 
----
+## Notes
 
-The author reserves the right to modify or update this license for future versions of the project. Changes apply only to new releases and do not retroactively affect previously distributed versions.
-
----
-
-The Laravel framework included in this project is licensed under MIT:
-
-https://opensource.org/licenses/MIT
+The author reserves the right to modify this license for future versions. Changes apply only to new releases and do not retroactively affect previously distributed versions.

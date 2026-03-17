@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-echo "🔥 Starting Laravel nginx server..."
+echo "🔥 Starting nginx server..."
 
 exec php-fpm

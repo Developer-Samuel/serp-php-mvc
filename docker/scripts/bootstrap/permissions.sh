@@ -14,7 +14,7 @@ if [ ! -f /var/www/storage/logs/app.log ]; then
 fi
 chmod 664 /var/www/storage/logs/app.log
 
-# 📢 Laravel Mix hot reload file
+# 📢 Hot reload file
 [ -f /var/www/public/hot ] && chown www-data:www-data /var/www/public/hot
 
 # 📦 Frontend build assets directory
